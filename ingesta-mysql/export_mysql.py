@@ -60,7 +60,7 @@ def main():
         for table in ["portafolios", "favoritos"]:
             filename = export_table(conn, table)
             if filename:
-                upload_to_s3(filename, "mysql")
+                upload_to_s3(filename, table)
                 
         conn.close()
         print("Ingesta MySQL completada.")

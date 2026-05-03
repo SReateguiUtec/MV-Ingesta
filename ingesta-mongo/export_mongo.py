@@ -63,7 +63,7 @@ def main():
         
         filename = export_collection(db, "noticias")
         if filename:
-            upload_to_s3(filename, "mongo")
+            upload_to_s3(filename, "noticias")
             
         client.close()
         print("Ingesta MongoDB completada.")

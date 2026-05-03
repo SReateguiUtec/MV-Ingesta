@@ -59,7 +59,7 @@ def main():
         for table in ["simbolos", "precios_acciones"]:
             filename = export_table(conn, table)
             if filename:
-                upload_to_s3(filename, "postgres")
+                upload_to_s3(filename, table)
                 
         conn.close()
         print("Ingesta PostgreSQL completada.")
