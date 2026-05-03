@@ -1,0 +1,5 @@
+pymysql
+psycopg2-binary
+pymongo
+boto3
+python-dotenv

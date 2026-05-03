@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  ingesta-mysql:
+    build: .
+    container_name: ingesta-mysql
+    command: python ingesta-mysql/export_mysql.py
+    env_file:
+      - ../.env
+    environment:
+      # Sobrescribir con host.docker.internal para pruebas locales
+      - DB_HOST_MYSQL=${DB_HOST_MYSQL:-host.docker.internal}
+
+  ingesta-pg:
+    build: .
+    container_name: ingesta-pg
+    command: python ingesta-pg/export_pg.py
+    env_file:
+      - ../.env
+    environment:
+      - DB_HOST_POSTGRES=${DB_HOST_POSTGRES:-host.docker.internal}
+
+  ingesta-mongo:
+    build: .
+    container_name: ingesta-mongo
+    command: python ingesta-mongo/export_mongo.py
+    env_file:
+      - ../.env
+    environment:
+      - DB_HOST_MONGO=${DB_HOST_MONGO:-host.docker.internal}
