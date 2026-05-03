@@ -42,14 +42,14 @@ def export_collection(db, collection_name):
     return filename
 
 def upload_to_s3(filename, folder):
-    if not os.getenv("AWS_ACCESS_KEY_ID"):
-        print(f"Saltando subida a S3 de {filename} (no hay credenciales AWS)")
-        return
-
-    print(f"Subiendo {filename} a s3://{S3_BUCKET}/{folder}/{filename}...")
-    s3_client = boto3.client('s3', region_name=AWS_REGION)
-    s3_client.upload_file(filename, S3_BUCKET, f"{folder}/{filename}")
-    print("Subida completada.")
+    # Intentar subir usando IAM Role o credenciales de entorno
+    try:
+        print(f"Subiendo {filename} a s3://{S3_BUCKET}/{folder}/{filename}...")
+        s3_client = boto3.client('s3', region_name=AWS_REGION)
+        s3_client.upload_file(filename, S3_BUCKET, f"{folder}/{filename}")
+        print("Subida completada.")
+    except Exception as e:
+        print(f"Error al subir a S3: {e}")
 
 def main():
     try:
